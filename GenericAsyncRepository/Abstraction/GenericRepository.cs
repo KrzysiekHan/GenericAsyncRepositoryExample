@@ -107,6 +107,64 @@ namespace GenericAsyncRepository.Abstraction
             return exist;
         }
 
+        public int Count()
+        {
+            return _context.Set<T>().Count();
+        }
 
+        public async Task<int> CountAsync()
+        {
+            return await _context.Set<T>().CountAsync();
+        }
+
+        public virtual void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        public async virtual Task<int> SaveAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        public virtual IQueryable<T> FindBy (Expression<Func<T,bool>> predicate)
+        {
+            IQueryable<T> query = _context.Set<T>().Where(predicate);
+            return query;
+        }
+
+        public virtual async Task<ICollection<T>> FindByAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).ToListAsync();
+        }
+
+        public IQueryable<T> GetAllIncluding(params Expression<Func<T,object>> [] includeProperties)
+        {
+            IQueryable<T> queryable = GetAll();
+            foreach (Expression<Func<T,object>> includeProperty in includeProperties)
+            {
+                queryable = queryable.Include<T, object>(includeProperty);
+            }
+            return queryable;
+        }
+
+        private bool disposed = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }
