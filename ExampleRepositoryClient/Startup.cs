@@ -27,7 +27,7 @@ namespace ExampleRepositoryClient
         {
             // services.AddControllersWithViews();
             services.AddMvc();
-            services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase("TestingDatabase"));
+            services.AddDbContext<DataContext>();
             services.AddTransient<IBlogRepository, BlogRepository>();
         }
 

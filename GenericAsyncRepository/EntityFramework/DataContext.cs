@@ -13,6 +13,11 @@ namespace GenericAsyncRepository.EntityFramework
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=SomefckinDB;Trusted_Connection=True;");
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Post>()
@@ -20,12 +25,7 @@ namespace GenericAsyncRepository.EntityFramework
                 .WithMany(p => p.Posts)
                 .IsRequired();
             base.OnModelCreating(builder);
-
-            builder.Entity<Blog>().HasData(new Blog
-            {
-                BlogId = 1,
-                Title = "some title"
-            });
+            
         }
 
         public virtual void Save()
