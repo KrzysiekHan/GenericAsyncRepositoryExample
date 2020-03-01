@@ -16,6 +16,7 @@ namespace GenericAsyncRepository.Models
         }
         public async Task<Blog> GetSingleAsync(int blogId)
         {
+
             return await _context.Set<Blog>().FindAsync(blogId);
         }
         public override Blog Update(Blog t, object key)

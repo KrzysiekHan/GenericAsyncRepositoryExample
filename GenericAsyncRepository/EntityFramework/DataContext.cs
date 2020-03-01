@@ -20,6 +20,12 @@ namespace GenericAsyncRepository.EntityFramework
                 .WithMany(p => p.Posts)
                 .IsRequired();
             base.OnModelCreating(builder);
+
+            builder.Entity<Blog>().HasData(new Blog
+            {
+                BlogId = 1,
+                Title = "some title"
+            });
         }
 
         public virtual void Save()

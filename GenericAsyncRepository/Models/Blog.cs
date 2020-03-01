@@ -3,6 +3,7 @@ using GenericAsyncRepository.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace GenericAsyncRepository.EntityFramework
 {
