@@ -2,10 +2,8 @@
 using GenericAsyncRepository.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,7 +12,7 @@ namespace GenericAsyncRepository.EntityFramework
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Post>()
@@ -55,7 +53,7 @@ namespace GenericAsyncRepository.EntityFramework
 
         private void TrackChanges()
         {
-            foreach (var entry in this.ChangeTracker.Entries().Where(e=>e.State == EntityState.Added || e.State == EntityState.Modified))
+            foreach (var entry in this.ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
             {
                 if (entry.Entity is IAuditable)
                 {
@@ -65,7 +63,8 @@ namespace GenericAsyncRepository.EntityFramework
                         auditable.CreatedBy = UserProvider;
                         auditable.CreatedOn = TimestampProvider();
                         auditable.UpdatedOn = TimestampProvider();
-                    } else
+                    }
+                    else
                     {
                         auditable.UpdatedBy = UserProvider;
                         auditable.UpdatedOn = TimestampProvider();

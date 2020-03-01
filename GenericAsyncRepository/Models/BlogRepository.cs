@@ -1,9 +1,6 @@
 ﻿using GenericAsyncRepository.Abstraction;
 using GenericAsyncRepository.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericAsyncRepository.Models
@@ -12,7 +9,7 @@ namespace GenericAsyncRepository.Models
     {
         public BlogRepository(DataContext context) : base(context) { }
 
-        public Blog Get(int blogId)
+        public new Blog Get(int blogId)
         {
             var query = GetAll().FirstOrDefault(b => b.BlogId == blogId);
             return query;
@@ -32,7 +29,7 @@ namespace GenericAsyncRepository.Models
             return base.Update(t, key);
         }
 
-        public async override Task<Blog> UpdateAsync(Blog t,object key)
+        public async override Task<Blog> UpdateAsync(Blog t, object key)
         {
             Blog exist = await _context.Set<Blog>().FindAsync(key);
             if (exist != null)

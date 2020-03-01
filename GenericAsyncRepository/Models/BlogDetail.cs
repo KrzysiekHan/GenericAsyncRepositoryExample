@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace GenericAsyncRepository.Models
 {
-   public class BlogDetail
+    public class BlogDetail
     {
         [Key]
         public int BlogId { get; set; }
