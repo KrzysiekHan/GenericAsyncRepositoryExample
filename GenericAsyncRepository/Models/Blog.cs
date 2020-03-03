@@ -13,6 +13,7 @@ namespace GenericAsyncRepository.EntityFramework
         public int BlogId { get; set; }
         public string Title { get; set; }
         public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
+        public ICollection<BlogCategory> Blogs { get; set; } = new HashSet<BlogCategory>();
 
         public string CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
